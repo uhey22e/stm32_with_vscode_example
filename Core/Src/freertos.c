@@ -52,7 +52,8 @@ osThreadId defaultTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-   
+extern void led_c_wrapper_example(void);
+
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
@@ -69,7 +70,7 @@ void vApplicationMallocFailedHook(void);
 /* USER CODE BEGIN 4 */
 __weak void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName)
 {
-   /* Run time stack overflow checking is performed if
+  /* Run time stack overflow checking is performed if
    configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2. This hook function is
    called if a stack overflow is detected. */
 }
@@ -78,7 +79,7 @@ __weak void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTask
 /* USER CODE BEGIN 5 */
 __weak void vApplicationMallocFailedHook(void)
 {
-   /* vApplicationMallocFailedHook() will only be called if
+  /* vApplicationMallocFailedHook() will only be called if
    configUSE_MALLOC_FAILED_HOOK is set to 1 in FreeRTOSConfig.h. It is a hook
    function that will get called if a call to pvPortMalloc() fails.
    pvPortMalloc() is called internally by the kernel whenever a task, queue,
@@ -94,14 +95,14 @@ __weak void vApplicationMallocFailedHook(void)
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
 static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
-  
-void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
+
+void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize)
 {
   *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
   *ppxIdleTaskStackBuffer = &xIdleStack[0];
   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
   /* place for user code */
-}                   
+}
 /* USER CODE END GET_IDLE_TASK_MEMORY */
 
 /**
@@ -111,7 +112,7 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-       
+
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -151,17 +152,18 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
+  led_c_wrapper_example();
   /* Infinite loop */
-  for(;;)
+  for (;;)
   {
-    osDelay(1);
+    osDelay(100);
   }
   /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-     
+
 /* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
